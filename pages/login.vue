@@ -10,3 +10,19 @@
         </div>
     </div>
 </template>
+
+<script>
+    export default {
+    head(){
+        return {
+        title: 'Todo app Login',
+        }
+    },
+    data () {
+        
+    },
+    computed: {
+        
+    }
+    }
+</script>
