@@ -45,6 +45,10 @@ select {
     color: white !important;
 }
 
+select option {
+    color: black;
+}
+
 textarea {
     resize: none !important;
 }
