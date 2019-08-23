@@ -17,7 +17,7 @@
 
 <script>
     
-    import {mapGetters} from 'vuex';
+    import {mapGetters, mapActions} from 'vuex';
 
     export default {
         head(){
@@ -38,12 +38,16 @@
             })
         },
         methods: {
+            ...mapActions({
+               userToLog: 'userToLog' 
+            }),
             login(){
                 const user = this.loggedUser( this.username, this.password );
                 if(!user){
                     this.failLogin = true;
                 }else{
                     this.failLogin = false;
+                    this.userToLog(user);
                     this.$router.push('todos');
                 }
             }
