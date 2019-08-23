@@ -1,5 +1,5 @@
 <template>
-    <div class="card text-white mb-3" :class="`bg-${color}`" style="max-width: 18rem;">
+    <div class="card text-white mb-3" :class="`bg-${color} ${done ? 'todo-done':''}`" style="max-width: 18rem;">
         <div class="card-header">
 
             <span v-if="mode == 'normal'">
@@ -28,14 +28,17 @@
 
                 <button type="button" class="btn btn-sm btn-outline-light" 
                     v-if="mode == 'edit'" 
-                    @click="save">Save</button>
+                    @click="save"
+                    :disabled='done'>Save</button>
 
                 <button type="button" class="btn btn-sm btn-outline-light" 
                     v-else-if="mode == 'normal'" 
-                    @click="edit">Edit</button>
+                    @click="edit"
+                    :disabled='done'>Edit</button>
 
                 <button type="button" class="btn btn-sm btn-outline-light"
-                    @click="_delete">Delete</button>
+                    @click="_delete"
+                    :disabled='done'>Delete</button>
         </div>
     </div>
 </template>
@@ -49,7 +52,7 @@ export default {
             content:'TODO CONTENT',
             color:'danger',
             mode:'normal',
-            colors: ['primary','info','secondary','danger','warning','light','dark','success']
+            colors: ['primary','info','secondary','danger','warning','dark','success']
         }
     },
     methods: {
