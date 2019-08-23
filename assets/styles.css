@@ -42,3 +42,7 @@ input[type=password] {
     background-color: transparent;
     color: white;
 }
+
+.separator {
+    background-color: #526488;
+}
