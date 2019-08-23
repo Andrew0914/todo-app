@@ -48,7 +48,7 @@
 <script>
 
 import TodoItem from '~/components/TodoItem.vue'
-import {mapGetters} from 'vuex'
+import {mapGetters,mapActions} from 'vuex'
 
 export default {
     middleware: 'auth',
@@ -60,8 +60,12 @@ export default {
         }
     },
     methods: {
+        ...mapActions({
+            userToLog: 'userToLog' 
+        }),
         logout(){
-            alert("Temporary action logout");
+            this.$router.push('login');
+            this.userToLog(null);
         },
         search(){
             alert("Temporary action search: " + this.termSearch);
