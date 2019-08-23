@@ -1,44 +1,48 @@
 <template>
-    <div class="card text-white mb-3" :class="`bg-${dataColor} ${dataDone ? 'todo-done':''}`" style="max-width: 18rem;">
-        <div class="card-header">
+    <div class="col-4">
+        <div class="card text-white mb-3" :class="`bg-${dataColor} ${dataDone ? 'todo-done':''}`" style="max-width: 18rem;">
+            <!-- CONTENT -->
+            <div class="card-header">
 
-            <span v-if="mode == 'normal'">
-                {{dataTitle}}
-            </span>
+                <span v-if="mode == 'normal'">
+                    {{dataTitle}}
+                </span>
 
-            <input type="text" class="form-control mb-1" v-else-if="mode == 'edit'" v-model="dataTitle">
-            <input type="checkbox" class="float-right" v-model="dataDone" @click="markAsDone">
+                <input type="text" class="form-control mb-1" v-else-if="mode == 'edit'" v-model="dataTitle">
+                <input type="checkbox" class="float-right" v-model="dataDone" @click="markAsDone">
 
-        </div>
-        <div class="card-body">
-            <p class="card-text" v-if="mode == 'normal'">{{dataContent}}</p>
+            </div>
+            <div class="card-body">
+                <p class="card-text" v-if="mode == 'normal'">{{dataContent}}</p>
 
-            <span v-else-if="mode == 'edit'">
+                <span v-else-if="mode == 'edit'">
 
-               <textarea resize="false" rows="5" class="form-control"  v-model="dataContent"></textarea>
+                <textarea resize="false" rows="5" class="form-control"  v-model="dataContent"></textarea>
 
-               <select class="form-control mt-2" v-model="dataColor">
-                   <option v-for='colour in colors' v-bind:key='colour' :value='colour'>{{colour}}</option>
-               </select>
+                <select class="form-control mt-2" v-model="dataColor">
+                    <option v-for='colour in colors' v-bind:key='colour' :value='colour'>{{colour}}</option>
+                </select>
 
-            </span>
-            
-        </div>
-        <div class="card-footer">
+                </span>
+                
+            </div>
+            <!-- ACTIONS -->
+            <div class="card-footer">
 
-                <button type="button" class="btn btn-sm btn-outline-light" 
-                    v-if="mode == 'edit'" 
-                    @click="save"
-                    :disabled='dataDone'>Save</button>
+                    <button type="button" class="btn btn-sm btn-outline-light" 
+                        v-if="mode == 'edit'" 
+                        @click="save"
+                        :disabled='dataDone'>Save</button>
 
-                <button type="button" class="btn btn-sm btn-outline-light" 
-                    v-else-if="mode == 'normal'" 
-                    @click="edit"
-                    :disabled='dataDone'>Edit</button>
+                    <button type="button" class="btn btn-sm btn-outline-light" 
+                        v-else-if="mode == 'normal'" 
+                        @click="edit"
+                        :disabled='dataDone'>Edit</button>
 
-                <button type="button" class="btn btn-sm btn-outline-light"
-                    @click="_delete"
-                    :disabled='dataDone'>Delete</button>
+                    <button type="button" class="btn btn-sm btn-outline-light"
+                        @click="_delete"
+                        :disabled='dataDone'>Delete</button>
+            </div>
         </div>
     </div>
 </template>

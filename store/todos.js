@@ -1,12 +1,6 @@
 export const state = () => ({
-    items: [{
-        id: 2,
-        userId: 1,
-        title: "Andrew Gonzalez",
-        content: "Mi priner todo estatico",
-        color: "primary",
-        done: true
-    }]
+    items: [],
+    incrementId: 0
 });
 
 export const getters = {
@@ -41,6 +35,9 @@ export const actions = {
         } else {
             return false;
         }
+    },
+    addTodo({ state, commit }, newtodo) {
+        commit('ADD_TODO', newtodo);
     }
 };
 
@@ -55,5 +52,10 @@ export const mutations = {
     },
     DONE_TODO(state, todo) {
         state.items.find(item => item.id == todo.id).done = todo.done;
+    },
+    ADD_TODO(state, newTodo) {
+        state.incrementId++;
+        newTodo.id = state.incrementId;
+        state.items.push(newTodo);
     }
 };

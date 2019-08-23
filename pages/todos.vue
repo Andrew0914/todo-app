@@ -8,7 +8,7 @@
                 </h1>
             </div>
              <div class="col-2">
-                <button type="button" class="btn btn-block btn-outline-success mt-3" @click="search">Nuevo +</button>
+                <button type="button" class="btn btn-block btn-outline-success mt-3" @click="add">Nuevo +</button>
             </div>
             <div class="col-2">
                 <button type="button" class="btn btn-outline-secondary btn-block mt-3" @click="logout">LOG OUT</button>
@@ -31,7 +31,7 @@
         <hr class="separator">
 
         <!-- TODOS -->
-        <div class="card-deck mt-4">
+        <div class="row mt-4">
             <TodoItem v-for="todo in todos" 
                 v-bind:key='todo.id'
                 :id='todo.id'
@@ -61,7 +61,10 @@ export default {
     },
     methods: {
         ...mapActions({
-            userToLog: 'userToLog' 
+            userToLog: 'userToLog'
+        }),
+        ...mapActions('todos',{
+             addTodo: 'addTodo'
         }),
         logout(){
             this.$router.push('login');
@@ -69,6 +72,15 @@ export default {
         },
         search(){
             alert("Temporary action search: " + this.termSearch);
+        },
+        add(){
+            this.addTodo({
+                userId: this.authUser.id,
+                title: "NEW TODO",
+                content: "NEW CONTENT",
+                color: "secondary",
+                done: false
+            })
         }
     },
     computed: {
