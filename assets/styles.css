@@ -38,9 +38,15 @@ body {
 }
 
 input[type=text],
-input[type=password] {
-    background-color: transparent;
-    color: white;
+input[type=password],
+textarea,
+select {
+    background-color: transparent !important;
+    color: white !important;
+}
+
+textarea {
+    resize: none !important;
 }
 
 .separator {

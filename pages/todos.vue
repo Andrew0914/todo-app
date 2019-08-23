@@ -32,28 +32,19 @@
 
         <!-- TODOS -->
         <div class="card-deck mt-4">
-            <div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
-                <div class="card-header">
-                    Todo Important!
-                    <input type="checkbox" class="float-right">
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">Danger TODO title</h5>
-                    <p class="card-text">This is a temporary static todo</p>
-                </div>
-                <div class="card-footer">
-                     <button type="button" class="btn btn-sm btn-outline-light">Edit</button>
-                     <button type="button" class="btn btn-sm btn-outline-light">Delete</button>
-                </div>
-            </div>
+            <TodoItem />
         </div>
 
     </section>  
 </template>
 
 <script>
+
+import TodoItem from '~/components/TodoItem.vue'
+
 export default {
     middleware: 'auth',
+    components: {TodoItem},
     data() {
         return {
             authUser : this.$store.getters.getAuthUser,
