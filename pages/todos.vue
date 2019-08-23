@@ -18,13 +18,10 @@
         <!-- SEARCH TODOS -->
         <br>
         <div class="row">
-            <div class="col-10">
+            <div class="col-12">
                 <h1 class="subtitle">
                     <input type="text" class="form-control" placeholder="busqueda" v-model="termSearch">
                 </h1>
-            </div>
-            <div class="col-2">
-                <button type="button" class="btn btn-block btn-secondary" @click="search">BUSCAR</button>
             </div>
         </div>
 
@@ -56,7 +53,7 @@ export default {
     data() {
         return {
             authUser : this.$store.getters.getAuthUser,
-            termSearch: ''
+            termSearch: '',
         }
     },
     methods: {
@@ -70,9 +67,6 @@ export default {
             this.$router.push('login');
             this.userToLog(null);
         },
-        search(){
-            alert("Temporary action search: " + this.termSearch);
-        },
         add(){
             this.addTodo({
                 userId: this.authUser.id,
@@ -85,10 +79,10 @@ export default {
     },
     computed: {
         ...mapGetters('todos', {
-            getTodosByUser: 'getTodosByUser'
+            getTodosByUserSearch: 'getTodosByUserSearch'
         }),
         todos(){
-            return this.getTodosByUser(this.authUser.id);
+            return this.getTodosByUserSearch(this.authUser.id,this.termSearch);
         }
     }
 }

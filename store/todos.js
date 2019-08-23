@@ -4,9 +4,12 @@ export const state = () => ({
 });
 
 export const getters = {
-    getTodosByUser(state) {
-        return function(userId) {
-            return state.items.filter(item => item.userId == userId);
+    getTodosByUserSearch(state) {
+        return function(userId, search) {
+            if (search == '' || search == null)
+                return state.items.filter(item => item.userId == userId);
+            else
+                return state.items.filter(item => item.userId == userId && item.title.includes(search));
         };
     }
 };
