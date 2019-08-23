@@ -7,7 +7,7 @@
             </span>
 
             <input type="text" class="form-control mb-1" v-else-if="mode == 'edit'" v-model="dataTitle">
-            <input type="checkbox" class="float-right" v-model="dataDone">
+            <input type="checkbox" class="float-right" v-model="dataDone" @click="markAsDone">
 
         </div>
         <div class="card-body">
@@ -86,12 +86,13 @@ export default {
     methods: {
         ...mapActions('todos',{
             editTodo:'editTodo',
-            deleteTodo: 'deleteTodo'
+            deleteTodo: 'deleteTodo',
+            doneTodo: 'doneTodo'
         }),
-        edit(){
+        edit() {
             this.mode = "edit";
         },
-        save(){
+        save() {
             this.mode = "normal";
             this.editTodo({
                 id: this.id,
@@ -101,8 +102,11 @@ export default {
                 color: this.dataColor
             });
         },
-        _delete(){
+        _delete() {
             this.deleteTodo(this.id);
+        },
+        markAsDone() {
+            this.doneTodo({id: this.id, done: !this.dataDone});
         }
     }
 }

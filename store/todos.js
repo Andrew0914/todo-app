@@ -1,37 +1,12 @@
 export const state = () => ({
     items: [{
-            id: 1,
-            userId: 1,
-            title: "Andrew Gonzalez",
-            content: "Mi priner todo estatico",
-            color: "primary",
-            done: true
-        },
-        {
-            id: 2,
-            userId: 1,
-            title: "Andrew Gonzalez",
-            content: "Mi priner todo estatico",
-            color: "primary",
-            done: true
-        },
-        {
-            id: 4,
-            userId: 1,
-            title: "Andrew Gonzalez",
-            content: "Mi priner todo estatico",
-            color: "primary",
-            done: true
-        },
-        {
-            id: 3,
-            userId: 1,
-            title: "Andrew Gonzalez",
-            content: "Mi priner todo estatico",
-            color: "primary",
-            done: true
-        }
-    ]
+        id: 2,
+        userId: 1,
+        title: "Andrew Gonzalez",
+        content: "Mi priner todo estatico",
+        color: "primary",
+        done: true
+    }]
 });
 
 export const getters = {
@@ -53,11 +28,19 @@ export const actions = {
     },
     deleteTodo({ state, commit }, todoId) {
         const index = state.items.findIndex(item => item.id == todoId);
-        if (index) {
+        if (index >= 0) {
             commit('DELETE_TODO', index);
             return true;
         }
         return false;
+    },
+    doneTodo({ state, commit }, todo) {;
+        if (state.items.find(item => item.id == todo.id)) {
+            commit('DONE_TODO', todo);
+            return true;
+        } else {
+            return false;
+        }
     }
 };
 
@@ -69,5 +52,8 @@ export const mutations = {
     },
     DELETE_TODO(state, index) {
         state.items.splice(index, 1);
+    },
+    DONE_TODO(state, todo) {
+        state.items.find(item => item.id == todo.id).done = todo.done;
     }
 };
