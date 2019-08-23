@@ -2,13 +2,16 @@
     <section>
         <!-- USER DATA/ ACTIONS -->
         <div class="row">
-            <div class="col-10">
+            <div class="col-8">
                 <h1 class="subtitle">
                     Bienvenido <b>{{authUser.nombre}}</b>
                 </h1>
             </div>
+             <div class="col-2">
+                <button type="button" class="btn btn-block btn-outline-success mt-3" @click="search">Nuevo +</button>
+            </div>
             <div class="col-2">
-                <button type="button" class="btn btn-outline-secondary btn-block mt-3 float-right" @click="logout">LOG OUT</button>
+                <button type="button" class="btn btn-outline-secondary btn-block mt-3" @click="logout">LOG OUT</button>
             </div>
         </div>
 
@@ -37,6 +40,10 @@
                 <div class="card-body">
                     <h5 class="card-title">Danger TODO title</h5>
                     <p class="card-text">This is a temporary static todo</p>
+                </div>
+                <div class="card-footer">
+                     <button type="button" class="btn btn-sm btn-outline-light">Edit</button>
+                     <button type="button" class="btn btn-sm btn-outline-light">Delete</button>
                 </div>
             </div>
         </div>
