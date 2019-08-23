@@ -34,6 +34,8 @@
         <div class="card-deck mt-4">
             <TodoItem v-for="todo in todos" 
                 v-bind:key='todo.id'
+                :id='todo.id'
+                :userId='todo.userId'
                 :title='todo.title'
                 :content='todo.content'
                 :color='todo.color'

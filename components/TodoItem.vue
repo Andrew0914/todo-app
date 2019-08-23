@@ -1,24 +1,24 @@
 <template>
-    <div class="card text-white mb-3" :class="`bg-${color} ${done ? 'todo-done':''}`" style="max-width: 18rem;">
+    <div class="card text-white mb-3" :class="`bg-${dataColor} ${dataDone ? 'todo-done':''}`" style="max-width: 18rem;">
         <div class="card-header">
 
             <span v-if="mode == 'normal'">
-                {{title}}
+                {{dataTitle}}
             </span>
 
-            <input type="text" class="form-control mb-1" v-else-if="mode == 'edit'" v-model="title">
-            <input type="checkbox" class="float-right" v-model="done">
+            <input type="text" class="form-control mb-1" v-else-if="mode == 'edit'" v-model="dataTitle">
+            <input type="checkbox" class="float-right" v-model="dataDone">
 
         </div>
         <div class="card-body">
-            <p class="card-text" v-if="mode == 'normal'">{{content}}</p>
+            <p class="card-text" v-if="mode == 'normal'">{{dataContent}}</p>
 
             <span v-else-if="mode == 'edit'">
 
-               <textarea resize="false" rows="10" class="form-control"  v-model="content"></textarea>
+               <textarea resize="false" rows="5" class="form-control"  v-model="dataContent"></textarea>
 
-               <select class="form-control mt-2" v-model="color">
-                   <option v-for='color in colors' v-bind:key='color' :value='color'>{{color}}</option>
+               <select class="form-control mt-2" v-model="dataColor">
+                   <option v-for='colour in colors' v-bind:key='colour' :value='colour'>{{colour}}</option>
                </select>
 
             </span>
@@ -29,23 +29,32 @@
                 <button type="button" class="btn btn-sm btn-outline-light" 
                     v-if="mode == 'edit'" 
                     @click="save"
-                    :disabled='done'>Save</button>
+                    :disabled='dataDone'>Save</button>
 
                 <button type="button" class="btn btn-sm btn-outline-light" 
                     v-else-if="mode == 'normal'" 
                     @click="edit"
-                    :disabled='done'>Edit</button>
+                    :disabled='dataDone'>Edit</button>
 
                 <button type="button" class="btn btn-sm btn-outline-light"
                     @click="_delete"
-                    :disabled='done'>Delete</button>
+                    :disabled='dataDone'>Delete</button>
         </div>
     </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 export default {
     props:{
+        id:{
+            type: Number,
+            required: true
+        },
+        userId:{
+            type: Number,
+            required: true
+        },
         title:{
             type: String,
             default: 'TODO TITLE',
@@ -61,20 +70,35 @@ export default {
         color:{
             type: String,
             default: 'danger',
-        },
+        }
+
     },
     data(){
         return{
             mode:'normal',
-            colors: ['primary','info','secondary','danger','warning','dark','success']
+            colors: ['primary','info','secondary','danger','warning','dark','success'],
+            dataTitle: this.title,
+            dataDone: this.done,
+            dataContent: this.content,
+            dataColor: this.color
         }
     },
     methods: {
+        ...mapActions('todos',{
+            editTodo:'editTodo'
+        }),
         edit(){
             this.mode = "edit";
         },
         save(){
             this.mode = "normal";
+            this.editTodo({
+                id: this.id,
+                userId: this.userId,
+                title: this.dataTitle,
+                content: this.dataContent,
+                color: this.dataColor
+            });
         },
         _delete(){
             alert("delete");
