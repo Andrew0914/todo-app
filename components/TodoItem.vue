@@ -85,7 +85,8 @@ export default {
     },
     methods: {
         ...mapActions('todos',{
-            editTodo:'editTodo'
+            editTodo:'editTodo',
+            deleteTodo: 'deleteTodo'
         }),
         edit(){
             this.mode = "edit";
@@ -101,7 +102,7 @@ export default {
             });
         },
         _delete(){
-            alert("delete");
+            this.deleteTodo(this.id);
         }
     }
 }

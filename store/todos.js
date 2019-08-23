@@ -50,6 +50,14 @@ export const actions = {
             return true;
         }
         return false;
+    },
+    deleteTodo({ state, commit }, todoId) {
+        const index = state.items.findIndex(item => item.id == todoId);
+        if (index) {
+            commit('DELETE_TODO', index);
+            return true;
+        }
+        return false;
     }
 };
 
@@ -58,5 +66,8 @@ export const mutations = {
         state.items.find(item => item.id == todo.id && item.userId == todo.userId).title = todo.title;
         state.items.find(item => item.id == todo.id && item.userId == todo.userId).content = todo.content;
         state.items.find(item => item.id == todo.id && item.userId == todo.userId).color = todo.color;
+    },
+    DELETE_TODO(state, index) {
+        state.items.splice(index, 1);
     }
 };
