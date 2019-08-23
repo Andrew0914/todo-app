@@ -45,12 +45,26 @@
 
 <script>
 export default {
+    props:{
+        title:{
+            type: String,
+            default: 'TODO TITLE',
+        },
+        done:{
+            type: Boolean ,
+            default: false
+        },
+        content:{
+            type: String,
+            default: 'TODO CONTENT',
+        },
+        color:{
+            type: String,
+            default: 'danger',
+        },
+    },
     data(){
         return{
-            title:'TODO TITLE',
-            done:false,
-            content:'TODO CONTENT',
-            color:'danger',
             mode:'normal',
             colors: ['primary','info','secondary','danger','warning','dark','success']
         }

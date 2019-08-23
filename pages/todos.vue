@@ -32,7 +32,12 @@
 
         <!-- TODOS -->
         <div class="card-deck mt-4">
-            <TodoItem />
+            <TodoItem v-for="todo in todos" 
+                v-bind:key='todo.id'
+                :title='todo.title'
+                :content='todo.content'
+                :color='todo.color'
+                :done='todo.done'/>
         </div>
 
     </section>  
@@ -41,6 +46,7 @@
 <script>
 
 import TodoItem from '~/components/TodoItem.vue'
+import {mapGetters} from 'vuex'
 
 export default {
     middleware: 'auth',
@@ -51,12 +57,20 @@ export default {
             termSearch: ''
         }
     },
-    methods:{
+    methods: {
         logout(){
             alert("Temporary action logout");
         },
         search(){
             alert("Temporary action search: " + this.termSearch);
+        }
+    },
+    computed: {
+        ...mapGetters('todos', {
+            getTodosByUser: 'getTodosByUser'
+        }),
+        todos(){
+            return this.getTodosByUser(this.authUser.id);
         }
     }
 }
